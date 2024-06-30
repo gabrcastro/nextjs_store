@@ -1,8 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ProductModel } from "@/app/domain/model/product.model";
 import useStore from "@/app/stores/store";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function HeaderComponent() {
+  const [ cartTotal, setCartTotal ] = useState(0);
   const { collapsed, toggleCollapsed } = useStore();
+  
+  let storedProducts = localStorage.getItem('cart');
+  let productsArray: ProductModel[] = storedProducts ? JSON.parse(storedProducts) : [];
+
+  useEffect(() => {
+    if (productsArray != null) {
+      setCartTotal(productsArray.length);
+    } else {
+      setCartTotal(0);
+    }
+  }, [productsArray]);
 
   return (
     <div className="w-full h-[100px] bg-blue-700 flex justify-between items-center px-20">
@@ -18,7 +33,7 @@ export default function HeaderComponent() {
           width={20}
           height={20}
         />
-        <span className="text-black font-bold text-xl ml-4">{collapsed ? 1 : 0}</span>
+        <span className="text-black font-bold text-xl ml-4">{cartTotal}</span>
       </button>
     </div>
   );

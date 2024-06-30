@@ -9,9 +9,9 @@ export default function Home() {
   const { collapsed, toggleCollapsed } = useStore();
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-[100%]">
       {collapsed ? (
-        <div className="fixed h-full right-0 top-0 z-50">
+        <div className="fixed h-max right-0 top-0 z-50">
           <SidebarComponent />
         </div>
       ) : null}
