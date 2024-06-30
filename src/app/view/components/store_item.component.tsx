@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import StoreItemButtonComponent from "./store_item_button.component";
+import { ProductModel } from "@/app/domain/model/product.model";
 
 export default function StoreItemComponent(params: { product: ProductModel }) {
   return (
-    <div className="flex flex-col justify-between items-center rounded-2xl bg-white w-full h-full  overflow-hidden">
+    <div className="flex flex-col justify-between items-center rounded-2xl bg-white w-full h-full overflow-hidden shadow-[1px_1px_10px_1px_rgba(0,0,0,0.2)]">
       <div className="p-4">
         <div className=" flex justify-center items-center mb-4">
           <img
@@ -30,7 +31,7 @@ export default function StoreItemComponent(params: { product: ProductModel }) {
         </span>
       </div>
 
-      <StoreItemButtonComponent id={params.product.id} />
+      <StoreItemButtonComponent product={params.product} />
     </div>
   );
 }

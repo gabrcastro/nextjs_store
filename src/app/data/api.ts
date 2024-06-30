@@ -1,5 +1,6 @@
 import config from "@/config";
 import apiParams from "./api.constants";
+import { ProductModel } from "../domain/model/product.model";
 
 interface FetchProductsParams {
   page: number;

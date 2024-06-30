@@ -1,8 +1,17 @@
+import { ProductModel } from "@/app/domain/model/product.model";
 import Image from "next/image";
 
-export default function StoreItemButtonComponent(params: { id: number }) {
+export default function StoreItemButtonComponent(params: { product: ProductModel }) {
+
+  const handleAddToCart = () => {
+    let storedProducts = localStorage.getItem('cart');
+    let productsArray: ProductModel[] = storedProducts ? JSON.parse(storedProducts) : [];
+    productsArray.push(params.product);
+    localStorage.setItem('cart', JSON.stringify(productsArray));
+  };
+
   return (
-    <div className="flex flex-row bg-blue-700 h-14 w-full justify-center items-center align-bottom hover:bg-blue-800 hover:cursor-pointer">
+    <button onClick={handleAddToCart} className="flex flex-row bg-blue-700 h-14 w-full justify-center items-center align-bottom hover:bg-blue-800 hover:cursor-pointer">
       <Image
         src="/icons/shopping-bag.svg"
         alt="Shopping Bag"
@@ -10,6 +19,6 @@ export default function StoreItemButtonComponent(params: { id: number }) {
         height={20}
       />
       <p className="ml-4 text-white text-xl font-medium">COMPRAR</p>
-    </div>
+    </button>
   );
 }

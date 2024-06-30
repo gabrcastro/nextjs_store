@@ -3,6 +3,7 @@ import { fetchProducts } from '@/app/data/api';
 import StoreItemComponent from "@/app/view/components/store_item.component";
 import { useEffect, useState } from "react";
 import apiParams from '@/app/data/api.constants';
+import { ProductModel } from '@/app/domain/model/product.model';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<ProductModel[]>([]);
@@ -39,7 +40,7 @@ useEffect(() => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full h-full grid grid-cols-4 gap-5">
+      <div className="w-full h-full grid grid-cols-4 gap-10">
         {products.map((product) => (
           <StoreItemComponent key={product.id} product={product} /> 
         ))}
