@@ -1,13 +1,16 @@
 import { ProductModel } from "@/app/domain/model/product.model";
+import useStore from "@/app/stores/store";
 import Image from "next/image";
 
 export default function StoreItemButtonComponent(params: { product: ProductModel }) {
+  const { cartTotal, setCartTotal } = useStore();
 
   const handleAddToCart = () => {
     let storedProducts = localStorage.getItem('cart');
     let productsArray: ProductModel[] = storedProducts ? JSON.parse(storedProducts) : [];
     productsArray.push(params.product);
     localStorage.setItem('cart', JSON.stringify(productsArray));
+    setCartTotal(productsArray.length);
   };
 
   return (

@@ -9,8 +9,8 @@ export default function SidebarComponent() {
   let productsArray: ProductModel[] = storedProducts ? JSON.parse(storedProducts) : [];
 
   return (
-    <div className="h-[100%] w-[500px] bg-blue-700 p-10 z-50 overflow-y-scroll">
-      <div className="flex flex-row justify-between items-center">
+    <div className="h-screen w-[500px] bg-blue-700 z-50 overflow-y-auto overflow-scroll">
+      <div className="flex flex-row justify-between items-center p-10 ">
         <p className="text-[40px] text-white font-bold">Carrinho de compras</p>
         <button
           className="w-8 h-8 rounded-full bg-black hover:bg-gray-950 hover:brightness-125"
@@ -25,11 +25,11 @@ export default function SidebarComponent() {
       ))}
 
       <div className="flex flex-col bottom-0">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-between items-center p-10 ">
           <p className="text-[30px] text-white font-bold">Total</p>
           <p className="text-[30px] text-white font-bold">R$ 458,09</p>
         </div>
-        <button onClick={() => null} className="w-full h-[100px] bg-black p-3">
+        <button onClick={() => null} className="w-full h-[100px] bg-black p-3 text-white">
           COMPRAR
         </button>
       </div>

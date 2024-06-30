@@ -13,7 +13,7 @@ export default function CartItemComponent(params: { product: ProductModel }) {
   }, [qtd]);
 
   return (
-    <div className="flex flex-col mt-2">
+    <div className="flex flex-col mt-2 px-10 pb-5">
       <div className="flex flex-row p-4 bg-white rounded-lg h-24 w-full justify-between items-center">
         <img
           src={params.product.photo}

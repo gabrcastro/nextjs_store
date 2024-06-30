@@ -5,8 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function HeaderComponent() {
-  const [ cartTotal, setCartTotal ] = useState(0);
-  const { collapsed, toggleCollapsed } = useStore();
+  const { collapsed, toggleCollapsed, cartTotal, setCartTotal } = useStore();
   
   let storedProducts = localStorage.getItem('cart');
   let productsArray: ProductModel[] = storedProducts ? JSON.parse(storedProducts) : [];
@@ -17,7 +16,7 @@ export default function HeaderComponent() {
     } else {
       setCartTotal(0);
     }
-  }, [productsArray]);
+  }, [cartTotal]);
 
   return (
     <div className="w-full h-[100px] bg-blue-700 flex justify-between items-center px-20">
