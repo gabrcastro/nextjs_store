@@ -7,8 +7,13 @@ export default function StoreItemButtonComponent(params: { product: ProductModel
   const { cartTotal, setCartTotal } = useStore();
 
   const handleAddToCart = () => {
-    let storedProducts = localStorage.getItem('cart');
-    let productsArray: (ProductModel & { quantity: number })[] = storedProducts ? JSON.parse(storedProducts) : [];
+    let storedProducts;
+    let productsArray: ProductModel[] = [];
+
+    if (typeof window !== "undefined") {
+      storedProducts = localStorage.getItem("cart");
+      productsArray = storedProducts ? JSON.parse(storedProducts) : [];
+    }
 
     const existingProductIndex = productsArray.findIndex(p => p.id === params.product.id);
 

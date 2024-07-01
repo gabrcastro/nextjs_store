@@ -23,17 +23,20 @@ export default function CartItemComponent(params: { product: ProductModel }) {
   const { totalPrice, setTotalPrice } = useStore();
 
   const updateLocalStorage = (newQuantity: number) => {
-    let storedProducts = localStorage.getItem('cart');
-    let productsArray: (ProductModel & { quantity: number })[] = storedProducts ? JSON.parse(storedProducts) : [];
+    if (typeof window !== "undefined") {
+      let storedProducts = localStorage.getItem("cart");
+      let productsArray: (ProductModel & { quantity: number })[] =
+        storedProducts ? JSON.parse(storedProducts) : [];
 
-    const updatedProducts = productsArray.map((p) => {
-      if (p.id === params.product.id) {
-        return { ...p, quantity: newQuantity };
-      }
-      return p;
-    });
+      const updatedProducts = productsArray.map((p) => {
+        if (p.id === params.product.id) {
+          return { ...p, quantity: newQuantity };
+        }
+        return p;
+      });
 
-    localStorage.setItem('cart', JSON.stringify(updatedProducts));
+      localStorage.setItem("cart", JSON.stringify(updatedProducts));
+    }
   };
 
   const handleIncrement = () => {
@@ -51,7 +54,8 @@ export default function CartItemComponent(params: { product: ProductModel }) {
   };
 
   const updateTotalPrice = (newQuantity: number) => {
-    const totalPriceDelta = (newQuantity - qtd) * parseFloat(params.product.price);
+    const totalPriceDelta =
+      (newQuantity - qtd) * parseFloat(params.product.price);
     setTotalPrice(totalPrice + totalPriceDelta);
   };
 
@@ -71,30 +75,20 @@ export default function CartItemComponent(params: { product: ProductModel }) {
         />
 
         <ProductInfo>
-          <ProductName>
-            {truncateString(params.product.name, 18)}
-          </ProductName>
+          <ProductName>{truncateString(params.product.name, 18)}</ProductName>
 
           <QuantityContainer>
             <QuantityLabel>Qtd</QuantityLabel>
             <QuantitySelector>
               <QuantityButtons>
-                <QuantityButton
-                  onClick={handleDecrement}>
-                  -
-                </QuantityButton>
+                <QuantityButton onClick={handleDecrement}>-</QuantityButton>
                 <QuantityText>{qtd}</QuantityText>
-                <QuantityButton
-                  onClick={handleIncrement}>
-                  +
-                </QuantityButton>
+                <QuantityButton onClick={handleIncrement}>+</QuantityButton>
               </QuantityButtons>
             </QuantitySelector>
           </QuantityContainer>
 
-          <ProductPrice>
-            R${params.product.price}
-          </ProductPrice>
+          <ProductPrice>R${params.product.price}</ProductPrice>
         </ProductInfo>
       </CartItem>
     </Container>

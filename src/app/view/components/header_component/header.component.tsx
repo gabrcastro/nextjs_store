@@ -3,14 +3,23 @@ import { ProductModel } from "@/app/domain/model/product.model";
 import useStore from "@/app/stores/store";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { CartButton, CartButtonText, HeaderContainer, TitleSpan } from "./header.styles";
+import {
+  CartButton,
+  CartButtonText,
+  HeaderContainer,
+  TitleSpan,
+} from "./header.styles";
 import { Title } from "../sidebar_component/sidebar.style";
 
 export default function HeaderComponent() {
   const { collapsed, toggleCollapsed, cartTotal, setCartTotal } = useStore();
-  
-  let storedProducts = localStorage.getItem('cart');
-  let productsArray: ProductModel[] = storedProducts ? JSON.parse(storedProducts) : [];
+  let storedProducts;
+  let productsArray: ProductModel[];
+
+  if (typeof window !== "undefined") {
+    storedProducts = localStorage.getItem("cart");
+    productsArray = storedProducts ? JSON.parse(storedProducts) : [];
+  }
 
   useEffect(() => {
     if (productsArray != null) {
@@ -25,8 +34,7 @@ export default function HeaderComponent() {
       <Title>
         MKS<TitleSpan>Store</TitleSpan>
       </Title>
-      <CartButton
-        onClick={toggleCollapsed}>
+      <CartButton onClick={toggleCollapsed}>
         <Image
           src="/icons/cart_icon.svg"
           alt="Cart Icon"

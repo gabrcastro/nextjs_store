@@ -32,10 +32,13 @@ export default function SidebarComponent() {
   >([]);
 
   useEffect(() => {
-    const storedProducts = localStorage.getItem("cart");
-    const productsArray: ProductModel[] = storedProducts
-      ? JSON.parse(storedProducts)
-      : [];
+    let storedProducts;
+    let productsArray: ProductModel[] = [];
+
+    if (typeof window !== "undefined") {
+      storedProducts = localStorage.getItem("cart");
+      productsArray = storedProducts ? JSON.parse(storedProducts) : [];
+    }
 
     let total = 0;
     productsArray.forEach((product) => {
