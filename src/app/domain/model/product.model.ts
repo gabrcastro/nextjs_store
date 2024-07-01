@@ -7,4 +7,5 @@ export interface ProductModel {
     price: string;
     createdAt: string;
     updatedAt: string;
+    quantity: number;
   }

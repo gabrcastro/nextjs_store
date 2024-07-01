@@ -1,9 +1,10 @@
 "use client";
 import { fetchProducts } from '@/app/data/api';
-import StoreItemComponent from "@/app/view/components/store_item.component";
+import StoreItemComponent from "@/app/view/components/store_item_component/store_item.component";
 import { useEffect, useState } from "react";
 import apiParams from '@/app/data/api.constants';
 import { ProductModel } from '@/app/domain/model/product.model';
+import { MainContainer, GridContainer } from "./products.style";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<ProductModel[]>([]);
@@ -39,12 +40,12 @@ useEffect(() => {
 }, [products]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full h-full grid grid-cols-4 gap-10">
+    <MainContainer>
+      <GridContainer>
         {products.map((product) => (
-          <StoreItemComponent key={product.id} product={product} /> 
+          <StoreItemComponent key={product.id} product={product} />
         ))}
-      </div>
-    </main>
+      </GridContainer>
+    </MainContainer>
   );
 }

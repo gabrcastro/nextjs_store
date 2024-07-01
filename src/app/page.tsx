@@ -1,21 +1,23 @@
 "use client";
 import "@/app/globals.css";
 import useStore from "@/app/stores/store";
-import HeaderComponent from "./view/components/header.component";
+import HeaderComponent from "./view/components/header_component/header.component";
 import ProductsPage from "./view/products/products.page";
-import SidebarComponent from "./view/components/sidebar.component";
+import SidebarComponent from "./view/components/sidebar_component/sidebar.component";
+import { ModalBuy } from "./view/components/modal_buy_component/modal_buy.component";
 
 export default function Home() {
-  const { collapsed, toggleCollapsed } = useStore();
+  const { collapsed, toggleCollapsed, showModal, toggleModal } = useStore();
 
   return (
-    <div className="relative w-full h-[100%]">
+    <div className="page">
       {collapsed ? (
-        <div className="fixed h-max right-0 top-0 z-50">
+        <div className="containerSidebar">
           <SidebarComponent />
         </div>
       ) : null}
-      <div className="w-full h-full">
+      {showModal && <ModalBuy onClose={() => toggleModal(false)} />}
+      <div className="containerContent">
         <HeaderComponent />
         <ProductsPage />
       </div>
