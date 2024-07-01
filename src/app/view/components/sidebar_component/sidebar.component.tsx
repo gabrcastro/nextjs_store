@@ -30,6 +30,7 @@ export default function SidebarComponent() {
   const [uniqueProductsArray, setUniqueProductsArray] = useState<
     ProductModel[]
   >([]);
+  const { cartTotal } = useStore();
 
   useEffect(() => {
     let storedProducts;
@@ -48,6 +49,18 @@ export default function SidebarComponent() {
 
     setUniqueProductsArray(productsArray);
   }, []);
+
+  useEffect(() => {
+    let storedProducts;
+    let productsArray: ProductModel[] = [];
+
+    if (typeof window !== "undefined") {
+      storedProducts = localStorage.getItem("cart");
+      productsArray = storedProducts ? JSON.parse(storedProducts) : [];
+    }
+
+    setUniqueProductsArray(productsArray);
+  }, [cartTotal]);
 
   return (
     <motion.div
@@ -77,12 +90,12 @@ export default function SidebarComponent() {
             <TotalText>R${totalPrice.toFixed(2).toString()}</TotalText>
           </FooterRow>
           <BuyButton
-            onClick={() => {
+            onClick={cartTotal > 0 ? () => {
               localStorage.removeItem("cart");
               toggleCollapsed();
               setCartTotal(0);
               toggleModal(true);
-            }}
+            } : () => {}}
           >
             COMPRAR
           </BuyButton>

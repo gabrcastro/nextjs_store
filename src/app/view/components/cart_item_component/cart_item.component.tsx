@@ -20,22 +20,28 @@ import useStore from "@/app/stores/store";
 
 export default function CartItemComponent(params: { product: ProductModel }) {
   const [qtd, setQtd] = useState<number>(params.product.quantity);
-  const { totalPrice, setTotalPrice } = useStore();
+  const { totalPrice, setTotalPrice, setCartTotal } = useStore();
 
   const updateLocalStorage = (newQuantity: number) => {
     if (typeof window !== "undefined") {
       let storedProducts = localStorage.getItem("cart");
       let productsArray: (ProductModel & { quantity: number })[] =
         storedProducts ? JSON.parse(storedProducts) : [];
-
-      const updatedProducts = productsArray.map((p) => {
+  
+      let updatedProducts = productsArray.map((p) => {
         if (p.id === params.product.id) {
           return { ...p, quantity: newQuantity };
         }
         return p;
       });
-
+  
+      if (newQuantity === 0) {
+        updatedProducts = updatedProducts.filter((p) => p.id !== params.product.id);
+      }
+      
       localStorage.setItem("cart", JSON.stringify(updatedProducts));
+    
+      setCartTotal(updatedProducts.length);
     }
   };
 
